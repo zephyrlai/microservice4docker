@@ -6,6 +6,7 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TNonblockingServer;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.transport.TFastFramedTransport;
+import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TNonblockingServerSocket;
 import org.apache.thrift.transport.TTransportException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,9 @@ public class ThriftServer {
             socket = new TNonblockingServerSocket(servicePort);
             TNonblockingServer.Args arg = new TNonblockingServer.Args(socket);
             arg.processor(ifaceProcessor);
-            arg.transportFactory(new TFastFramedTransport.Factory());
+            // 帧传输
+            arg.transportFactory(new TFramedTransport.Factory());
+            // 二进制协议
             arg.protocolFactory(new TBinaryProtocol.Factory());
             TServer server = new TNonblockingServer(arg);
             server.serve();
