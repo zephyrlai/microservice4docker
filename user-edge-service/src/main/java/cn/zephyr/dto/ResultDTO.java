@@ -11,6 +11,10 @@ public class ResultDTO<T> {
     private T data;
 
     public static ResultDTO USERNAME_PASSWORD_INVALID=new ResultDTO("1001","USERNAME_PASSWORD_INVALID",null);
+    public static ResultDTO EMAIL_OR_MOBILE_REQUIRED=new ResultDTO("1002","EMAIL_OR_MOBILE_REQUIRED",null);
+    public static ResultDTO VERIFY_CODE_INVALID=new ResultDTO("1003","VERIFY_CODE_INVALID",null);
+
+    public static ResultDTO OPEARTION_FAILURE=new ResultDTO("5001","OPEARTION_FAILURE",null);
 
     public ResultDTO() {
     }
