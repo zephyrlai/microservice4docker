@@ -17,6 +17,7 @@
         <module>message-thirft-java-service</module>
         <module>course-dubbo-service-api</module>
         <module>course-dubbo-service</module>
+        <module>course-edge-service</module>
     </modules>
 
 

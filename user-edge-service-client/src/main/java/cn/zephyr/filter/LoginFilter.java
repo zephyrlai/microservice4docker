@@ -26,7 +26,7 @@ public abstract class LoginFilter implements Filter {
 
     private final String AUTHORIZATION = "AUTHORIZATION";
 
-    private final String USER_INFO_REQ_URL = "http://127.0.0.1/user/authorization";
+    private final String USER_INFO_REQ_URL = "http://127.0.0.1:8082/user/authorization";
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -57,6 +57,7 @@ public abstract class LoginFilter implements Filter {
                 }
             }
         }
+        token = "7a504ee90158407e9d97a135be93e540";
         //
         UserInfoDTO userInfoDTO = null;
         if(StringUtils.isNotBlank(token)){
@@ -68,7 +69,7 @@ public abstract class LoginFilter implements Filter {
             }
         }
         if(null == userInfoDTO)
-            response.sendRedirect("http://127.0.0.1/user/login");
+            response.sendRedirect("http://127.0.0.1:8082/user/login");
         login(request,response,userInfoDTO);
         filterChain.doFilter(request,response);
 
@@ -88,12 +89,11 @@ public abstract class LoginFilter implements Filter {
      */
     private UserInfoDTO requestUserInfo(String token){
         try {
-            String s = HttpClientUtils.genGetParams(token);
-            String resultByGet = HttpClientUtils.getResponseResultByGet(USER_INFO_REQ_URL + s);
+            String resultByGet = HttpClientUtils.getResponseResultByGet(USER_INFO_REQ_URL + "?token="+token);
             if(StringUtils.isBlank(resultByGet)){
                 return null;
             }
-            return JSON.parseObject(s, UserInfoDTO.class);
+            return JSON.parseObject(resultByGet, UserInfoDTO.class);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
