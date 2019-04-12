@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,7 +36,12 @@ public class UserController {
     @Autowired
     private RedisClient redisClient;
 
-    @RequestMapping("login")
+    @RequestMapping(value="login",method = RequestMethod.GET)
+    public String loginPage(){
+        return "login";
+    }
+
+    @RequestMapping(value = "login",method = RequestMethod.POST)
     @ResponseBody
     public ResultDTO userLogin(String username,String password){
         // 1. 验证用户密码

@@ -40,4 +40,15 @@ public interface UserMapper {
             "values (#{u.username},#{u.password},#{u.realName},#{u.mobile},#{u.email})")
     void registerUser(@Param("u") UserInfo userInfo);
 
+
+    /**
+     * 根据id获取教师信息
+     * @param id
+     * @return
+     */
+    @Select("select u.id,u.username,u.password,u.real_name as realName," +
+            "u.mobile,u.email,t.intro,t.stars from pe_user u," +
+            "pe_teacher t where u.id=#{id} " +
+            "and u.id=t.user_id")
+    UserInfo getTeacherById(@Param("id")int id);
 }
