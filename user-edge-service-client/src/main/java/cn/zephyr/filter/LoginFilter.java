@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -24,7 +26,7 @@ public abstract class LoginFilter implements Filter {
     private Cache<String,UserInfoDTO> localCache = CacheBuilder.newBuilder()
             .maximumSize(10000).expireAfterWrite(3, TimeUnit.MINUTES).build();
 
-    private final String AUTHORIZATION = "AUTHORIZATION";
+    private final String AUTHORIZATION = "Authorization";
 
     private final String USER_INFO_REQ_URL = "http://127.0.0.1:8082/user/authorization";
 
@@ -57,7 +59,7 @@ public abstract class LoginFilter implements Filter {
                 }
             }
         }
-        token = "7a504ee90158407e9d97a135be93e540";
+//        token = "7a504ee90158407e9d97a135be93e540";
         //
         UserInfoDTO userInfoDTO = null;
         if(StringUtils.isNotBlank(token)){
@@ -89,7 +91,9 @@ public abstract class LoginFilter implements Filter {
      */
     private UserInfoDTO requestUserInfo(String token){
         try {
-            String resultByGet = HttpClientUtils.getResponseResultByGet(USER_INFO_REQ_URL + "?token="+token);
+            Map<String,String> headerMap = new HashMap<String, String>();
+            headerMap.put("token",token);
+            String resultByGet = HttpClientUtils.getResponseResultByGet(USER_INFO_REQ_URL + "?token="+token,"utf-8",headerMap);
             if(StringUtils.isBlank(resultByGet)){
                 return null;
             }

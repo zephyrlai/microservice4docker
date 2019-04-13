@@ -137,7 +137,7 @@ public class UserController {
     @RequestMapping(value="/authorization", method = RequestMethod.GET)
     @ResponseBody
     public UserInfoDTO authentication(@RequestHeader("token") String token) {
-
+        System.err.println(redisClient.get(token));
         return redisClient.get(token);
     }
 }
