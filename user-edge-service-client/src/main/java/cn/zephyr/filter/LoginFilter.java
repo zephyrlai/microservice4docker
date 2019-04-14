@@ -38,7 +38,7 @@ public abstract class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest)servletRequest;
         HttpServletResponse response = (HttpServletResponse)servletResponse;
         // 获取token(依次从request、session、header、cookie获取)
-        String token = (String)request.getAttribute(AUTHORIZATION);
+        String token = (String)request.getParameter(AUTHORIZATION);
         if(StringUtils.isBlank(token)){
             // session
             token = (String)request.getSession().getAttribute(AUTHORIZATION);
