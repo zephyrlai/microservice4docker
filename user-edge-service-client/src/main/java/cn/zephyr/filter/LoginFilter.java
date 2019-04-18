@@ -28,7 +28,7 @@ public abstract class LoginFilter implements Filter {
 
     private final String AUTHORIZATION = "Authorization";
 
-    private final String USER_INFO_REQ_URL = "http://127.0.0.1:8082/user/authorization";
+    private final String USER_INFO_REQ_URL = "http://user-edge-service:8082/user/authorization";
 
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -71,7 +71,7 @@ public abstract class LoginFilter implements Filter {
             }
         }
         if(null == userInfoDTO)
-            response.sendRedirect("http://127.0.0.1:8082/user/login");
+            response.sendRedirect("http://user-edge-service:8082/user/login");
         login(request,response,userInfoDTO);
         filterChain.doFilter(request,response);
 

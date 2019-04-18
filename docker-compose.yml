@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  message-thrift-service:
+    image: zephyrlai/message-thrift-service:latest
+
+  user-thrift-service:
+    image: zephyrlai/user-thrift-service:latest
+
+  user-edge-service:
+    image: zephyrlai/user-edge-service:latest
+    links:
+      - user-thrift-service
+      - message-thrift-service
+
+  course-dubbo-service:
+    image: zephyrlai/course-dubbo-service:latest
+    links:
+      - user-thrift-service
+
+  course-edge-service:
+    image: zephyrlai/course-edge-service:latest
+    links:
+      - user-edge-service
+
+  api-gateway-zuul:
+    image: zephyrlai/api-gateway-zuul:latest
+    links:
+      - course-edge-service
+      - user-edge-service
+    ports:
+      - 8080:8080
