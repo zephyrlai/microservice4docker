@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CourseController {
 
-    @Reference
+    @Reference(timeout = 300000)
     private ICourseService iCourseService;
 
     @RequestMapping("queryList")

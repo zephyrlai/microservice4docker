@@ -71,7 +71,7 @@ public abstract class LoginFilter implements Filter {
             }
         }
         if(null == userInfoDTO)
-            response.sendRedirect("http://user-edge-service:8082/user/login");
+            response.sendRedirect("http://user-edge-service:8080/user/login");
         login(request,response,userInfoDTO);
         filterChain.doFilter(request,response);
 

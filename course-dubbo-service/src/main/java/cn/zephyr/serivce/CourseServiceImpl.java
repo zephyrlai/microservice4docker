@@ -17,7 +17,7 @@ import java.util.List;
  * @Description: TODO
  * @Date: 2019/4/12 11:17
  */
-@Service
+@Service(timeout = 30000)
 public class CourseServiceImpl implements ICourseService {
 
     @Autowired
